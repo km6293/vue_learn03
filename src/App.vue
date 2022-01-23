@@ -9,15 +9,18 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container :data="data" />
+  <Container :data="data" :uploadImg="uploadImg" :viewState="viewState" />
 
+  <button @click="more(buttonNum)">더보기</button>
   <div class="footer">
     <ul class="footer-button-plus">
-      <input type="file" id="file" class="inputfile" />
+      <input @change="upload" multiple type="file" id="file" class="inputfile" />
       <label for="file" class="input-plus">+</label>
     </ul>
- </div>
-  <button @click="more">더보기</button>
+  </div>
+
+
+
 </template>
 
 <script>
@@ -25,23 +28,37 @@ import axios from 'axios'
 import Container from './Container.vue'
 import data from './assets/Data.js'
 
+
 export default {
   name: 'App',
   data(){
     return{
       data : data,
+      buttonNum : 0,
+      viewState : 0,
+      uploadImg : []
     }
   },
   components:{
     Container
   },
   methods: {
-    more(){
-      axios.get('https://codingapple1.github.io/vue/more0.json').then(
-        function(result){
-          console.log(result)
-        }
-      )
+    more(buttonNum){
+      axios.get(`https://codingapple1.github.io/vue/more${buttonNum}.json`)
+      .then((result) => {
+        this.data.push(result.data)
+      }).catch((err)=>{
+        err
+      })
+      this.buttonNum += 1
+    },
+    upload(e){
+      let file = e.target.files
+      // 임시 URL 생김
+      let url = URL.createObjectURL(file[0])
+      this.uploadImg.push(url)
+      console.log(this.uploadImg)
+      this.viewState = 1
     }
   }
 
