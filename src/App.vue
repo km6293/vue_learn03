@@ -4,12 +4,13 @@
       <li>Cancel</li>
     </ul>
     <ul class="header-button-right">
-      <li>Next</li>
+      <li v-if="viewState == 1" @click="viewState+=1">Next</li>
+      <li v-if="viewState == 2" @click="publish">발행</li>
     </ul>
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container :data="data" :uploadImg="uploadImg" :viewState="viewState" />
+  <Container :data="data" :uploadImg="uploadImg" :viewState="viewState" @contentsWrite="contentsWrite = $event" />
 
   <button @click="more(buttonNum)">더보기</button>
   <div class="footer">
@@ -36,7 +37,8 @@ export default {
       data : data,
       buttonNum : 0,
       viewState : 0,
-      uploadImg : []
+      uploadImg : '',
+      contentsWrite : ''
     }
   },
   components:{
@@ -56,10 +58,23 @@ export default {
       let file = e.target.files
       // 임시 URL 생김
       let url = URL.createObjectURL(file[0])
-      this.uploadImg.push(url)
-      console.log(this.uploadImg)
+      this.uploadImg = url
       this.viewState = 1
-    }
+    },
+    publish(){
+      const myContents = {
+        name: "Kim Hyun",
+        userImage: "https://placeimg.com/100/100/arch",
+        postImage: this.uploadImg,
+        likes: 36,
+        date: "May 15",
+        liked: false,
+        content: this.contentsWrite,
+        filter: "perpetua"
+      }
+      this.data.unshift(myContents)
+      this.viewState = 0
+    },
   }
 
 }
