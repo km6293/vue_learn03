@@ -6,19 +6,23 @@
 
   <!-- 필터선택페이지 -->
     <div v-if="viewState == 1">
-      <div class="upload-image" :style="`background-image: url(${uploadImg})`" ></div>
+      <div class="upload-image" :class="uploadFilter" :style="`background-image: url(${uploadImg})`" ></div>
       <div class="filters">
-        <div class="filter-1"></div>
-        <div class="filter-1"></div>
-        <div class="filter-1"></div>
-        <div class="filter-1"></div>
-        <div class="filter-1"></div>
+        <FilterBox :uploadImg="uploadImg" :filter="filter[i]" v-for="(a,i) in filter" :key="i">
+          <!-- 자식 -> 부모 에 종종 쓴다고 함, slot은 HTML 태그기 때문에 HTML 태그처럼만 사용가능함 -->
+          <!-- slot 사용 시 -->
+          <!-- 1-1. FilterBox에 slot 태그 생성 -->
+          <!-- 1-2. 여기 FilterBox 사이에 말 생성 하면 됨 -->
+          <!-- 2-1. <slot:자식데이터="자식데이터"> -->
+          <!-- 2-2. 부모 : <template v-slot="작명"> {{작명.자식데이터}}  -->
+          <!-- 여러개 사용 시 , slot name="a", <template v-slot:a>데이터1</template> -->
+        </FilterBox>
       </div>
     </div>
 
   <!-- 글작성페이지 -->
     <div v-if="viewState == 2">
-      <div class="upload-image" :style="`background-image: url(${uploadImg})`"></div>
+      <div class="upload-image" :class="uploadFilter" :style="`background-image: url(${uploadImg})`"></div>
       <div class="write">
         <textarea @input="$emit('contentsWrite',$event.target.value)" class="write-box">write!</textarea>
       </div>
@@ -29,15 +33,28 @@
 
 <script>
 import Post from './Post.vue'
+import FilterBox from './components/FilterBox.vue'
 
 export default {
+  name : 'Container',
+  data(){
+    return{
+      filter : [ "aden", "_1977", "brannan", "brooklyn", "clarendon", "earlybird", "gingham", "hudson", 
+                "inkwell", "kelvin", "lark", "lofi", "maven", "mayfair", "moon", "nashville", "perpetua", 
+                "reyes", "rise", "slumber", "stinson", "toaster", "valencia", "walden", "willow", "xpro2"
+              ],
+      filterName : '',
+    }
+  },
   components:{
     Post,
+    FilterBox
   },
   props:{
     data: Array,
     viewState : Number,
-    uploadImg : Array
+    uploadImg : Array,
+    uploadFilter : String
   },
 }
 </script>

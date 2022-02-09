@@ -10,7 +10,7 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container :data="data" :uploadImg="uploadImg" :viewState="viewState" @contentsWrite="contentsWrite = $event" />
+  <Container :data="data" :uploadImg="uploadImg" :uploadFilter="uploadFilter" :viewState="viewState" @contentsWrite="contentsWrite = $event" />
 
   <button @click="more(buttonNum)">더보기</button>
   <div class="footer">
@@ -38,8 +38,15 @@ export default {
       buttonNum : 0,
       viewState : 0,
       uploadImg : '',
-      contentsWrite : ''
+      contentsWrite : '',
+      uploadFilter : ''
     }
+  },
+  mounted(){
+    this.emitter.on('throwFilter',(filter)=>{
+      console.log(filter)
+      this.uploadFilter = filter
+    });
   },
   components:{
     Container
@@ -70,7 +77,7 @@ export default {
         date: "May 15",
         liked: false,
         content: this.contentsWrite,
-        filter: "perpetua"
+        filter: this.uploadFilter
       }
       this.data.unshift(myContents)
       this.viewState = 0
