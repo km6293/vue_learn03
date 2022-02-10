@@ -10,8 +10,11 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <h4>{{$store.state.age}}</h4>
-  <button @click="$store.commit('changeAge', 5)">age</button>
+  <h4>{{age}}</h4>
+  <button @click="changeAge(5)">age</button>
+
+  <p>{{$store.state.more}}</p>
+  <button @click="$store.dispatch('getData')">더보기</button>
 
   <Container :data="data" :uploadImg="uploadImg" :uploadFilter="uploadFilter" :viewState="viewState" @contentsWrite="contentsWrite = $event" />
 
@@ -31,6 +34,7 @@
 import axios from 'axios'
 import Container from './Container.vue'
 import data from './assets/Data.js'
+import {mapState, mapMutations} from 'vuex'
 
 
 export default {
@@ -54,7 +58,14 @@ export default {
   components:{
     Container
   },
+
+  computed:{
+    ...mapState(['name','age','likes']),
+    // ...mapState({name:'name'})
+  },
+
   methods: {
+    ...mapMutations(['changeAge']),
     more(buttonNum){
       axios.get(`https://codingapple1.github.io/vue/more${buttonNum}.json`)
       .then((result) => {

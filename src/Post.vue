@@ -6,7 +6,7 @@
     </div>
     <div class="post-body" @click="$store.commit('oneClick')" :class="data.filter" :style="{ backgroundImage : `url(${data.postImage})` }"></div>
     <div class="post-content">
-      <p>{{$store.state.likes[0]}} Likes {{data.index}} </p>
+      <p>{{$store.state.likes}} Likes </p>
       <p><strong>{{data.name}}</strong> {{data.content}}</p>
       <p class="date">{{data.date}}</p>
     </div>
