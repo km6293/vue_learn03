@@ -4,9 +4,9 @@
       <div class="profile" :style="{ backgroundImage : `url(${data.userImage})` }"></div>
       <span class="profile-name">{{data.name}}</span>
     </div>
-    <div class="post-body" :class="data.filter" :style="{ backgroundImage : `url(${data.postImage})` }"></div>
+    <div class="post-body" @click="$store.commit('oneClick')" :class="data.filter" :style="{ backgroundImage : `url(${data.postImage})` }"></div>
     <div class="post-content">
-      <p>{{data.likes}} Likes</p>
+      <p>{{$store.state.likes[0]}} Likes {{data.index}} </p>
       <p><strong>{{data.name}}</strong> {{data.content}}</p>
       <p class="date">{{data.date}}</p>
     </div>
@@ -15,6 +15,11 @@
 
 <script>
 export default {
+  data(){
+    return{
+      
+    }
+  },
   props:{
     data: Array
   }

@@ -9,4 +9,8 @@ app.config.globalProperties.emitter = emitter;
 // app.config.globalProperties.axios = axios;
 // 그러면 이제 vue 파일에서 import axios 해올 필요 없이 this.axios로 사용가능
 
-app.mount('#app')
+// vuex
+import store from './store.js'
+
+// use -> 모든 컴포넌트들이 store 공유
+app.use(store).mount('#app')

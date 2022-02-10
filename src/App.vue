@@ -10,6 +10,9 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
+  <h4>{{$store.state.age}}</h4>
+  <button @click="$store.commit('changeAge', 5)">age</button>
+
   <Container :data="data" :uploadImg="uploadImg" :uploadFilter="uploadFilter" :viewState="viewState" @contentsWrite="contentsWrite = $event" />
 
   <button @click="more(buttonNum)">더보기</button>
