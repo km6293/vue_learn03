@@ -29,11 +29,17 @@
     </div>
   </div>
 
+  <!-- 팔로워 페이지 -->
+    <div v-if="viewState == 3">
+      <MyPage/>
+    </div>
+
 </template>
 
 <script>
 import Post from './Post.vue'
 import FilterBox from './components/FilterBox.vue'
+import MyPage from './MyPage.vue'
 
 export default {
   name : 'Container',
@@ -48,7 +54,8 @@ export default {
   },
   components:{
     Post,
-    FilterBox
+    FilterBox,
+    MyPage
   },
   props:{
     data: Array,

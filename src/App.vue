@@ -10,15 +10,15 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <h4>{{age}}</h4>
+  <!-- <h4>{{age}}</h4>
   <button @click="changeAge(5)">age</button>
 
   <p>{{$store.state.more}}</p>
-  <button @click="$store.dispatch('getData')">더보기</button>
+  <button @click="$store.dispatch('getData')">더보기</button> -->
 
   <Container :data="data" :uploadImg="uploadImg" :uploadFilter="uploadFilter" :viewState="viewState" @contentsWrite="contentsWrite = $event" />
 
-  <button @click="more(buttonNum)">더보기</button>
+  <!-- <button @click="more(buttonNum)">더보기</button> -->
   <div class="footer">
     <ul class="footer-button-plus">
       <input @change="upload" multiple type="file" id="file" class="inputfile" />
@@ -43,7 +43,7 @@ export default {
     return{
       data : data,
       buttonNum : 0,
-      viewState : 0,
+      viewState : 3,
       uploadImg : '',
       contentsWrite : '',
       uploadFilter : ''
